@@ -1,0 +1,170 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+html {
+  transition: font-size 0.15s ease-in-out;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Scrollbar personalizada para o menu */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+
+/* ==========================================================================
+   ESTILOS DE ALTO CONTRASTE E USERWAY (WCAG 2.1)
+   ========================================================================== */
+html.high-contrast,
+html.high-contrast body {
+  background-color: #000000 !important;
+  color: #ffff00 !important;
+}
+
+html.high-contrast div,
+html.high-contrast section,
+html.high-contrast header,
+html.high-contrast footer,
+html.high-contrast nav,
+html.high-contrast article,
+html.high-contrast main {
+  background-color: #000000 !important;
+  color: #ffff00 !important;
+  border-color: #ffff00 !important;
+}
+
+html.high-contrast p,
+html.high-contrast span,
+html.high-contrast h1,
+html.high-contrast h2,
+html.high-contrast h3,
+html.high-contrast h4,
+html.high-contrast h5,
+html.high-contrast h6,
+html.high-contrast label,
+html.high-contrast li {
+  color: #ffff00 !important;
+}
+
+html.high-contrast button,
+html.high-contrast a {
+  background-color: #000000 !important;
+  color: #00ffff !important;
+  border: 2px solid #00ffff !important;
+}
+
+html.high-contrast button:hover,
+html.high-contrast a:hover {
+  background-color: #00ffff !important;
+  color: #000000 !important;
+}
+
+/* Modos de Cores Adicionais */
+html.color-invert {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+html.color-monochrome {
+  filter: grayscale(100%);
+}
+
+/* Espaçamento de Texto */
+html.text-spacing-moderado body {
+  letter-spacing: 0.05em !important;
+  line-height: 1.7 !important;
+}
+
+html.text-spacing-expandido body {
+  letter-spacing: 0.12em !important;
+  line-height: 2.0 !important;
+}
+
+/* Fonte para Dislexia */
+html.dyslexic-font body,
+html.dyslexic-font p,
+html.dyslexic-font span,
+html.dyslexic-font h1,
+html.dyslexic-font h2,
+html.dyslexic-font h3,
+html.dyslexic-font h4,
+html.dyslexic-font button,
+html.dyslexic-font a {
+  font-family: 'Comic Sans MS', 'OpenDyslexic', sans-serif !important;
+  letter-spacing: 0.08em !important;
+  line-height: 1.8 !important;
+}
+
+/* Cursor Ampliado */
+html.big-cursor,
+html.big-cursor * {
+  cursor: crosshair !important;
+}
+
+/* Destacar Links e Botões */
+html.highlight-links a,
+html.highlight-links button {
+  outline: 3px solid #0284c7 !important;
+  outline-offset: 2px !important;
+  text-decoration: underline !important;
+}
+
+/* Pausar Animações */
+html.pause-animations *,
+html.pause-animations *::before,
+html.pause-animations *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* Esconder elementos visuais nativos do Google Translate */
+.goog-te-banner-frame,
+.skiptranslate,
+#goog-gt-tt,
+.goog-te-balloon-frame,
+#goog-gt-votingHTML,
+.goog-te-spinner-pos {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+body {
+  top: 0px !important;
+  position: static !important;
+}
+
+.goog-text-highlight {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+
+
