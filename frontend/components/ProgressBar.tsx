@@ -16,10 +16,10 @@ export default function ProgressBar({ etapaAtual, totalEtapas, porcentagem }: Pr
     <div className="w-full space-y-2 mb-6">
       <div className="flex justify-between items-center text-xs md:text-sm font-extrabold text-slate-700">
         <span className="flex items-center gap-1.5">
-          <span className="w-2.5 h-2.5 rounded-full bg-sky-600 animate-pulse"></span>
+          <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse"></span>
           Etapa {etapaAtual} de {totalEtapas}
         </span>
-        <span className="text-sky-700 font-black">{porcentagem}% concluído</span>
+        <span className="text-blue-700 font-black">{porcentagem}% concluído</span>
       </div>
 
       {/* Track da Barra */}
@@ -32,7 +32,7 @@ export default function ProgressBar({ etapaAtual, totalEtapas, porcentagem }: Pr
           className={`h-full rounded-full transition-all duration-300 ${
             altoContraste
               ? 'bg-yellow-400'
-              : 'bg-gradient-to-r from-sky-500 to-emerald-500 shadow-sm'
+              : 'bg-gradient-to-r from-blue-500 to-cyan-500 shadow-sm'
           }`}
           style={{ width: `${Math.min(100, Math.max(5, porcentagem))}%` }}
         />

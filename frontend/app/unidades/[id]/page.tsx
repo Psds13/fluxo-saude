@@ -4,18 +4,14 @@ import React, { use } from 'react';
 import Link from 'next/link';
 import { unidadeService } from '@/services/unidadeService';
 import UnitStatusBadge from '@/components/UnitStatusBadge';
-import ServiceBadge from '@/components/ServiceBadge';
 import DisclaimerBanner from '@/components/DisclaimerBanner';
 import {
   MapPin,
-  Phone,
   Clock,
   Navigation,
   Bus,
   ArrowLeft,
   CalendarCheck,
-  Building2,
-  PhoneCall,
   CheckCircle,
 } from 'lucide-react';
 
@@ -56,10 +52,10 @@ export default function DetalheUnidadePage({ params }: PageProps) {
       </Link>
 
       {/* Card Principal de Detalhes da Unidade */}
-      <div className="bg-white rounded-3xl border-2 border-slate-200 shadow-xl overflow-hidden space-y-8">
+      <div className="bg-white rounded-3xl border-2 border-sky-100 shadow-xl overflow-hidden space-y-8">
         
         {/* Cabeçalho da Unidade */}
-        <div className="bg-slate-900 text-white p-6 md:p-8 space-y-4">
+        <div className="bg-linear-to-r from-sky-900 via-sky-800 to-emerald-800 text-white p-6 md:p-8 space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <span
               className={`px-3.5 py-1 rounded-full text-xs font-black uppercase tracking-wider ${

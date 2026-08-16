@@ -1,23 +1,14 @@
 'use client';
 
 import React, { useState } from 'react';
-import Image from 'next/image';
 import { useTenant } from '@/components/TenantContext';
 import { MOCK_UNIDADES, MOCK_PERGUNTAS, MOCK_SERVICOS } from '@/services/mockData';
 import { Unidade, StatusUnidade } from '@/types/unidade';
 import UnitStatusBadge from '@/components/UnitStatusBadge';
 import {
   Building2,
-  Users,
-  Activity,
-  CheckCircle2,
   Plus,
-  Edit,
-  ShieldCheck,
-  ToggleLeft,
-  ToggleRight,
   Sparkles,
-  BarChart3,
   Settings,
   HelpCircle,
   Stethoscope,
@@ -62,10 +53,10 @@ export default function AdminDashboardPage() {
     <div className="max-w-7xl mx-auto px-4 py-8 space-y-8">
       
       {/* Header do Painel Administrativo SaaS */}
-      <div className="bg-slate-900 text-white p-6 md:p-8 rounded-3xl shadow-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-6 border border-slate-800">
+      <div className="bg-linear-to-r from-blue-900 via-blue-800 to-emerald-800 text-white p-6 md:p-8 rounded-3xl shadow-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-6 border border-blue-700">
         <div className="space-y-2">
           <div className="flex items-center gap-2">
-            <span className="bg-emerald-500/20 text-emerald-300 text-xs font-black px-3 py-1 rounded-full uppercase border border-emerald-800">
+            <span className="bg-white/10 text-blue-100 text-xs font-black px-3 py-1 rounded-full uppercase border border-white/20">
               Painel do Gestor Municipal (SaaS)
             </span>
             <span className="text-xs text-slate-400 font-semibold flex items-center gap-1">
@@ -83,14 +74,14 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Seletor Multi-Tenant no Painel */}
-        <div className="bg-slate-800 p-4 rounded-2xl border border-slate-700 space-y-2 shrink-0 w-full md:w-auto">
-          <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">
+        <div className="bg-white/10 p-4 rounded-2xl border border-white/15 space-y-2 shrink-0 w-full md:w-auto backdrop-blur-sm">
+          <span className="text-[11px] font-bold text-blue-100 uppercase tracking-wider block">
             Alternar Ambiente de Cliente:
           </span>
           <select
             value={tenantAtual.id}
             onChange={(e) => selecionarTenant(e.target.value)}
-            className="w-full bg-slate-900 text-white text-xs font-bold px-3 py-2 rounded-xl border border-slate-600 focus:outline-hidden"
+            className="w-full bg-blue-950/60 text-white text-xs font-bold px-3 py-2 rounded-xl border border-white/15 focus:outline-hidden"
           >
             {tenantsDisponiveis.map((t) => (
               <option key={t.id} value={t.id}>
@@ -121,9 +112,9 @@ export default function AdminDashboardPage() {
           <span className="text-[11px] text-slate-500 font-medium">Pronto Socorro</span>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border-2 border-sky-100 shadow-xs space-y-1">
-          <span className="text-xs font-bold text-sky-700 uppercase tracking-wider block">Orientações no Mês</span>
-          <div className="text-3xl font-black text-sky-800">1.482</div>
+        <div className="bg-white p-5 rounded-2xl border-2 border-blue-100 shadow-xs space-y-1">
+          <span className="text-xs font-bold text-blue-700 uppercase tracking-wider block">Orientações no Mês</span>
+          <div className="text-3xl font-black text-blue-800">1.482</div>
           <span className="text-[11px] text-emerald-700 font-bold">↑ 18% este mês</span>
         </div>
       </div>
@@ -134,7 +125,7 @@ export default function AdminDashboardPage() {
           onClick={() => setAbaAtiva('unidades')}
           className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-extrabold transition ${
             abaAtiva === 'unidades'
-              ? 'bg-sky-600 text-white shadow-md'
+              ? 'bg-blue-600 text-white shadow-md'
               : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
           }`}
         >
@@ -146,7 +137,7 @@ export default function AdminDashboardPage() {
           onClick={() => setAbaAtiva('servicos')}
           className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-extrabold transition ${
             abaAtiva === 'servicos'
-              ? 'bg-sky-600 text-white shadow-md'
+              ? 'bg-blue-600 text-white shadow-md'
               : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
           }`}
         >

@@ -235,11 +235,40 @@ interface AccessibilityContextType {
 const AccessibilityContext = createContext<AccessibilityContextType | undefined>(undefined);
 
 export function AccessibilityProvider({ children }: { children: React.ReactNode }) {
+  const [idioma, setIdiomaState] = useState<string>(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('fluxo_saude_idioma') || 'pt-BR';
+    }
+    return 'pt-BR';
+  });
+
   const [perfilAtivo, setPerfilAtivo] = useState<PerfilAcessibilidade>('nenhum');
-  const [idioma, setIdiomaState] = useState<string>('pt-BR');
-  const [modoCor, setModoCorState] = useState<ModoCor>('padrao');
-  const [altoContraste, setAltoContraste] = useState<boolean>(false);
-  const [tamanhoFonte, setTamanhoFonteState] = useState<TamanhoFonte>('normal');
+
+  const [modoCor, setModoCorState] = useState<ModoCor>(() => {
+    if (typeof window !== 'undefined') {
+      const savedContraste = localStorage.getItem('fluxo_saude_contraste');
+      if (savedContraste === 'true') return 'alto-contraste';
+    }
+    return 'padrao';
+  });
+
+  const [altoContraste, setAltoContraste] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('fluxo_saude_contraste') === 'true';
+    }
+    return false;
+  });
+
+  const [tamanhoFonte, setTamanhoFonteState] = useState<TamanhoFonte>(() => {
+    if (typeof window !== 'undefined') {
+      const savedFonte = localStorage.getItem('fluxo_saude_fonte') as TamanhoFonte;
+      if (savedFonte && ['normal', 'grande', 'extragrande', 'gigante'].includes(savedFonte)) {
+        return savedFonte;
+      }
+    }
+    return 'normal';
+  });
+
   const [espacamentoTexto, setEspacamentoTextoState] = useState<EspacamentoTexto>('normal');
   const [fonteDislexia, setFonteDislexia] = useState<boolean>(false);
 
@@ -249,31 +278,15 @@ export function AccessibilityProvider({ children }: { children: React.ReactNode 
   const [pausarAnimacoes, setPausarAnimacoes] = useState<boolean>(false);
   const [destacarLinks, setDestacarLinks] = useState<boolean>(false);
 
-  const [leitorVoz, setLeitorVoz] = useState<boolean>(false);
+  const [leitorVoz, setLeitorVoz] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('fluxo_saude_leitor_voz') === 'true';
+    }
+    return false;
+  });
   const [estaFalando, setEstaFalando] = useState<boolean>(false);
 
-  // Carregar preferências salvas
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
 
-    const savedIdioma = localStorage.getItem('fluxo_saude_idioma');
-    if (savedIdioma) setIdiomaState(savedIdioma);
-
-    const savedContraste = localStorage.getItem('fluxo_saude_contraste');
-    if (savedContraste) {
-      const isHigh = savedContraste === 'true';
-      setAltoContraste(isHigh);
-      if (isHigh) setModoCorState('alto-contraste');
-    }
-
-    const savedFonte = localStorage.getItem('fluxo_saude_fonte') as TamanhoFonte;
-    if (savedFonte && ['normal', 'grande', 'extragrande', 'gigante'].includes(savedFonte)) {
-      setTamanhoFonteState(savedFonte);
-    }
-
-    const savedLeitor = localStorage.getItem('fluxo_saude_leitor_voz');
-    if (savedLeitor) setLeitorVoz(savedLeitor === 'true');
-  }, []);
 
   // Rastreamento do mouse para a Guia de Leitura
   useEffect(() => {
@@ -453,9 +466,10 @@ export function AccessibilityProvider({ children }: { children: React.ReactNode 
       script.async = true;
       document.body.appendChild(script);
 
-      (window as any).googleTranslateInit = () => {
-        if ((window as any).google && (window as any).google.translate) {
-          new (window as any).google.translate.TranslateElement(
+      (window as unknown as { googleTranslateInit?: () => void; google?: { translate?: { TranslateElement: new (config: object, id: string) => void } } }).googleTranslateInit = () => {
+        const win = window as unknown as { google?: { translate?: { TranslateElement: new (config: object, id: string) => void } } };
+        if (win.google && win.google.translate) {
+          new win.google.translate.TranslateElement(
             {
               pageLanguage: 'pt',
               autoDisplay: false,

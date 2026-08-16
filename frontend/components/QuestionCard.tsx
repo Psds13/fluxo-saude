@@ -24,7 +24,7 @@ export default function QuestionCard({ pergunta, numeroEtapa }: QuestionCardProp
       }`}
     >
       <div className="flex items-center justify-between gap-4 mb-4">
-        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-sky-100 text-sky-800 border border-sky-200">
+        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-blue-100 text-blue-800 border border-blue-200">
           <HelpCircle className="w-3.5 h-3.5" /> Pergunta {numeroEtapa}
         </span>
 
@@ -34,7 +34,7 @@ export default function QuestionCard({ pergunta, numeroEtapa }: QuestionCardProp
           className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 transition"
           title="Ouvir texto da pergunta"
         >
-          <Volume2 className="w-4 h-4 text-sky-600" />
+          <Volume2 className="w-4 h-4 text-blue-600" />
           <span>Ouvir Pergunta</span>
         </button>
       </div>

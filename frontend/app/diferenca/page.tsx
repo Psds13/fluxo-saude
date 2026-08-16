@@ -4,30 +4,28 @@ import React from 'react';
 import Link from 'next/link';
 import DisclaimerBanner from '@/components/DisclaimerBanner';
 import {
-  Stethoscope,
-  Siren,
   PhoneCall,
-  Building2,
   CheckCircle,
-  XCircle,
-  HelpCircle,
   ArrowRight,
-  Info,
 } from 'lucide-react';
 
 export default function DiferencaPage() {
   return (
     <div className="max-w-5xl mx-auto px-4 py-10 space-y-12">
       {/* Header */}
-      <div className="space-y-4 text-center max-w-3xl mx-auto">
-        <span className="text-xs font-black uppercase tracking-widest text-sky-700 bg-sky-100 px-3.5 py-1.5 rounded-full border border-sky-200">
-          Guia Educativo de Saúde Pública
-        </span>
-        <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight">
-          Qual a diferença entre UBS, UPA, SAMU e Hospital?
+      <div className="space-y-4 text-center max-w-3xl mx-auto pt-6">
+        <div className="flex items-center justify-center gap-2">
+          <div className="h-1 w-8 bg-linear-to-r from-blue-600 to-cyan-500 rounded-full"></div>
+          <span className="text-xs font-black uppercase tracking-widest text-[#0071BC] bg-[#0071BC]/10 px-3.5 py-1.5 rounded-full border border-[#0071BC]/20">
+            Conhecer o SUS Ajuda
+          </span>
+          <div className="h-1 w-8 bg-linear-to-l from-cyan-500 to-blue-600 rounded-full"></div>
+        </div>
+        <h1 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight">
+          Qual a Diferença Entre UBS, UPA, SAMU e Hospital?
         </h1>
-        <p className="text-slate-600 text-base md:text-lg leading-relaxed">
-          O SUS é organizado em redes de atenção. Saber escolher o serviço correto reduz o tempo de espera e garante que quem realmente precisa de atendimento urgente seja atendido com rapidez.
+        <p className="text-slate-600 text-base md:text-lg leading-relaxed max-w-2xl mx-auto">
+          O SUS é organizado em níveis de complexidade. Compreender cada um garante que o paciente receba o atendimento certo no momento certo, reduzindo filas e economizando recursos.
         </p>
       </div>
 
@@ -202,14 +200,14 @@ export default function DiferencaPage() {
         </div>
 
         {/* Hospital */}
-        <div className="bg-white p-8 rounded-3xl border-2 border-sky-200 shadow-md space-y-6 flex flex-col justify-between">
+        <div className="bg-white p-8 rounded-3xl border-2 border-blue-200 shadow-md space-y-6 flex flex-col justify-between">
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-14 h-14 rounded-2xl bg-sky-100 text-sky-800 flex items-center justify-center text-2xl font-black border border-sky-300">
+              <div className="w-14 h-14 rounded-2xl bg-blue-100 text-blue-800 flex items-center justify-center text-2xl font-black border border-blue-300">
                 🏥
               </div>
               <div>
-                <span className="text-xs font-bold text-sky-700 uppercase tracking-wider block">Alta Complexidade</span>
+                <span className="text-xs font-bold text-blue-700 uppercase tracking-wider block">Alta Complexidade</span>
                 <h2 className="text-2xl font-extrabold text-slate-900">Hospital Público</h2>
               </div>
             </div>
@@ -242,7 +240,7 @@ export default function DiferencaPage() {
           <div className="pt-4 border-t border-slate-100">
             <Link
               href="/unidades?tipo=HOSPITAL"
-              className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-sky-700 hover:bg-sky-800 text-white font-bold text-xs transition shadow-sm"
+              className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-blue-700 hover:bg-blue-800 text-white font-bold text-xs transition shadow-sm"
             >
               <span>Ver Hospitais de Referência</span>
               <ArrowRight className="w-4 h-4" />

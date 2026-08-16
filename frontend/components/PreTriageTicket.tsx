@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { ResultadoTriagem } from '../types/resultado';
-import { QrCode, Printer, Download, CheckCircle2, AlertTriangle, ShieldCheck, MapPin, Building2 } from 'lucide-react';
+import { QrCode, Printer, ShieldCheck } from 'lucide-react';
 import { useAccessibility } from './AccessibilityContext';
 
 interface PreTriageTicketProps {
@@ -11,7 +11,7 @@ interface PreTriageTicketProps {
 
 export default function PreTriageTicket({ resultado }: PreTriageTicketProps) {
   const { altoContraste } = useAccessibility();
-  const protocolId = `SUS-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
+  const [protocolId] = React.useState(() => `SUS-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`);
 
   const handlePrint = () => {
     window.print();
@@ -38,12 +38,12 @@ export default function PreTriageTicket({ resultado }: PreTriageTicketProps) {
     >
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-slate-200">
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-2xl bg-sky-100 text-sky-700 flex items-center justify-center font-black shrink-0 border border-sky-200">
+          <div className="w-12 h-12 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center font-black shrink-0 border border-blue-200">
             <QrCode className="w-6 h-6" />
           </div>
           <div>
             <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-700 uppercase tracking-wider mb-1">
-              <ShieldCheck className="w-3 h-3 text-sky-600" /> Protocolo de Pré-Triagem SUS
+              <ShieldCheck className="w-3 h-3 text-blue-600" /> Protocolo de Pré-Triagem SUS
             </div>
             <h3 className="text-xl font-extrabold tracking-tight">Comprovante Digital do Cidadão</h3>
           </div>
@@ -51,9 +51,9 @@ export default function PreTriageTicket({ resultado }: PreTriageTicketProps) {
 
         <button
           onClick={handlePrint}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition shadow-md active:scale-95 shrink-0"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs transition shadow-md active:scale-95 shrink-0"
         >
-          <Printer className="w-4 h-4 text-sky-400" />
+          <Printer className="w-4 h-4 text-white" />
           <span>Imprimir / Salvar PDF</span>
         </button>
       </div>

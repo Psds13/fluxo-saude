@@ -7,27 +7,23 @@ import { useTenant } from '../components/TenantContext';
 
 export function useUnits(filtroInicial?: FiltroUnidade) {
   const { tenantAtual } = useTenant();
-  const [unidades, setUnidades] = useState<Unidade[]>([]);
-  const [carregando, setCarregando] = useState<boolean>(true);
+  const [unidades, setUnidades] = useState<Unidade[]>(() => 
+    unidadeService.getUnidades(filtroInicial || {}, tenantAtual.id)
+  );
+  const [carregando, setCarregando] = useState<boolean>(false);
   const [localizacaoAutorizada, setLocalizacaoAutorizada] = useState<boolean>(false);
   const [obtendoLocalizacao, setObtendoLocalizacao] = useState<boolean>(false);
   const [erroLocalizacao, setErroLocalizacao] = useState<string | null>(null);
   const [filtro, setFiltro] = useState<FiltroUnidade>(filtroInicial || {});
 
-  const carregarUnidades = useCallback(() => {
-    setCarregando(true);
-    const lista = unidadeService.getUnidades(filtro, tenantAtual.id);
-    setUnidades(lista);
-    setCarregando(false);
-  }, [filtro, tenantAtual.id]);
-
-  useEffect(() => {
-    carregarUnidades();
-  }, [carregarUnidades]);
-
-  const aplicarFiltro = (novoFiltro: Partial<FiltroUnidade>) => {
-    setFiltro((prev) => ({ ...prev, ...novoFiltro }));
-  };
+  const aplicarFiltro = useCallback((novoFiltro: Partial<FiltroUnidade>) => {
+    setFiltro((prev) => {
+      const atualizado = { ...prev, ...novoFiltro };
+      const lista = unidadeService.getUnidades(atualizado, tenantAtual.id);
+      setUnidades(lista);
+      return atualizado;
+    });
+  }, [tenantAtual.id]);
 
   const obterMinhaLocalizacao = (tipo?: TipoUnidade) => {
     if (!navigator.geolocation) {
@@ -68,6 +64,6 @@ export function useUnits(filtroInicial?: FiltroUnidade) {
     obtendoLocalizacao,
     localizacaoAutorizada,
     erroLocalizacao,
-    recarregar: carregarUnidades,
+    recarregar: () => aplicarFiltro({}),
   };
 }

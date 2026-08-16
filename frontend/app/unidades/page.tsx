@@ -8,7 +8,7 @@ import DisclaimerBanner from '@/components/DisclaimerBanner';
 import { useUnits } from '@/hooks/useUnits';
 import { useTenant } from '@/components/TenantContext';
 import { TipoUnidade } from '@/types/unidade';
-import { MapPin, Building2, AlertCircle } from 'lucide-react';
+import { Building2, AlertCircle } from 'lucide-react';
 
 function UnidadesContent() {
   const searchParams = useSearchParams();
@@ -29,16 +29,19 @@ function UnidadesContent() {
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 space-y-8">
       {/* Top Banner da Página */}
-      <div className="space-y-3">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-100 text-sky-900 text-xs font-bold border border-sky-200">
-          <Building2 className="w-3.5 h-3.5" />
-          <span>Rede Pública — {tenantAtual.nome}</span>
+      <div className="space-y-4 pt-4">
+        <div className="flex items-center gap-2">
+          <div className="h-1 w-8 bg-linear-to-r from-blue-600 to-cyan-500 rounded-full"></div>
+          <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 text-blue-900 text-xs font-bold border border-blue-200">
+            <Building2 className="w-3.5 h-3.5" />
+            <span>Rede Pública — {tenantAtual.nome}</span>
+          </span>
         </div>
-        <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
+        <h1 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
           Unidades de Saúde Cadastradas
         </h1>
-        <p className="text-slate-600 text-sm md:text-base max-w-3xl">
-          Encontre os postos de saúde (UBS), unidades de pronto atendimento (UPA 24h) e hospitais de referência no seu município.
+        <p className="text-slate-600 text-sm md:text-base max-w-3xl leading-relaxed">
+          Encontre os postos de saúde (UBS), unidades de pronto atendimento (UPA 24h) e hospitais de referência no seu município. Verifique horários, telefones e status de funcionamento.
         </p>
       </div>
 
@@ -62,7 +65,7 @@ function UnidadesContent() {
           </div>
           <button
             onClick={() => recarregar()}
-            className="px-3 py-1 bg-amber-600 text-white rounded-lg font-bold text-xs shrink-0"
+            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold text-xs shrink-0 transition-colors"
           >
             Tentar Novamente
           </button>
@@ -75,23 +78,23 @@ function UnidadesContent() {
           Carregando unidades de saúde...
         </div>
       ) : unidades.length === 0 ? (
-        <div className="bg-white p-10 rounded-3xl text-center space-y-4 border-2 border-slate-200 shadow-sm max-w-xl mx-auto">
-          <div className="w-12 h-12 bg-slate-100 text-slate-400 rounded-full flex items-center justify-center mx-auto text-xl">
-            📍
+        <div className="bg-linear-to-br from-blue-50 to-cyan-50 p-12 rounded-3xl text-center space-y-4 border-2 border-blue-200 shadow-sm max-w-xl mx-auto">
+          <div className="w-14 h-14 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto text-2xl border-2 border-blue-200">
+            🔍
           </div>
-          <h3 className="font-bold text-slate-800 text-lg">Nenhuma unidade encontrada</h3>
+          <h3 className="font-black text-slate-800 text-lg">Nenhuma unidade encontrada</h3>
           <p className="text-xs text-slate-600 leading-relaxed">
-            Não encontramos resultados com os filtros selecionados. Tente mudar o bairro, remover o filtro de "Apenas Abertas" ou buscar por outro endereço.
+            Não encontramos unidades para a pesquisa &quot;{filtro.busca}&quot;. Tente outro termo ou escolha um filtro diferente.
           </p>
           <button
             onClick={() => aplicarFiltro({ busca: '', tipo: 'TODAS', apenasAbertas: false })}
-            className="px-5 py-2.5 bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold rounded-xl transition shadow-xs"
+            className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl transition shadow-md active:scale-95"
           >
             Limpar todos os filtros
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-2">
           {unidades.map((unidade) => (
             <UnitCard key={unidade.id} unidade={unidade} />
           ))}

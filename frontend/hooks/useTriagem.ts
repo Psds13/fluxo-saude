@@ -8,17 +8,11 @@ import { useRouter } from 'next/navigation';
 
 export function useTriagem() {
   const router = useRouter();
-  const [perguntas, setPerguntas] = useState<Pergunta[]>([]);
+  const [perguntas] = useState<Pergunta[]>(() => triagemService.getPerguntasAtivas());
   const [indiceAtual, setIndiceAtual] = useState<number>(0);
   const [respostas, setRespostas] = useState<RespostaUsuario[]>([]);
-  const [carregando, setCarregando] = useState<boolean>(true);
+  const [carregando] = useState<boolean>(false);
   const [resultadoFinal, setResultadoFinal] = useState<ResultadoAnalise | null>(null);
-
-  useEffect(() => {
-    const lista = triagemService.getPerguntasAtivas();
-    setPerguntas(lista);
-    setCarregando(false);
-  }, []);
 
   const perguntaAtual = perguntas[indiceAtual];
   const totalPerguntas = perguntas.length;
