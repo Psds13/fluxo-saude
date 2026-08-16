@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { PhoneCall, ShieldAlert, HeartHandshake, Info } from 'lucide-react';
@@ -8,6 +8,13 @@ import { useAccessibility } from './AccessibilityContext';
 
 export default function Footer() {
   const { altoContraste } = useAccessibility();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const anoAtual = mounted ? new Date().getFullYear() : 2026;
 
   return (
     <footer className={`${altoContraste ? 'bg-black text-yellow-300 border-t border-yellow-400' : 'bg-gradient-to-br from-blue-950 via-blue-900 to-emerald-950 text-slate-300'} text-xs pt-10 pb-8 mt-auto`}>
@@ -118,7 +125,7 @@ export default function Footer() {
 
         {/* Rodapé Direitos */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-slate-500 text-[11px]">
-          <p>© {new Date().getFullYear()} Fluxo Saúde. Plataforma Digital de Orientação e Saúde Pública.</p>
+          <p>© {anoAtual} Fluxo Saúde. Plataforma Digital de Orientação e Saúde Pública.</p>
           <div className="flex gap-4">
             <span>Privacidade e Segurança</span>
             <span>Acessibilidade WCAG 2.1</span>

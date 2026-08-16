@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ResultadoTriagem } from '../types/resultado';
 import { QrCode, Printer, ShieldCheck } from 'lucide-react';
 import { useAccessibility } from './AccessibilityContext';
@@ -11,7 +11,16 @@ interface PreTriageTicketProps {
 
 export default function PreTriageTicket({ resultado }: PreTriageTicketProps) {
   const { altoContraste } = useAccessibility();
-  const [protocolId] = React.useState(() => `SUS-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`);
+  const [mounted, setMounted] = useState(false);
+  const [protocolId, setProtocolId] = useState('SUS-0000-0000');
+
+  useEffect(() => {
+    setMounted(true);
+    setProtocolId(`SUS-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`);
+  }, []);
+
+  const dataAtual = mounted ? new Date().toLocaleDateString('pt-BR') : '—';
+  const horaAtual = mounted ? new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '--:--';
 
   const handlePrint = () => {
     window.print();
@@ -74,7 +83,7 @@ export default function PreTriageTicket({ resultado }: PreTriageTicketProps) {
             <div>
               <span className="text-[10px] text-slate-400 font-bold uppercase block">Data/Hora</span>
               <span className="text-xs font-semibold text-slate-600 dark:text-slate-300">
-                {new Date().toLocaleDateString('pt-BR')} às {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                {dataAtual} às {horaAtual}
               </span>
             </div>
           </div>

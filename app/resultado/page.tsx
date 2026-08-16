@@ -1,12 +1,18 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ResultCard from '@/components/ResultCard';
 import PreTriageTicket from '@/components/PreTriageTicket';
 import DisclaimerBanner from '@/components/DisclaimerBanner';
 import { ResultadoAnalise, ResultadoTriagem } from '@/types/resultado';
 
 export default function ResultadoPage() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const [resultado] = useState<ResultadoAnalise | null>(() => {
     if (typeof window !== 'undefined') {
       const deSessao = sessionStorage.getItem('fluxo_saude_resultado');
@@ -45,7 +51,7 @@ export default function ResultadoPage() {
         'Caso tenha dor forte ou febre alta repentina, procure uma UPA 24h.',
       ],
       respostasProcessadas: [],
-      dataHora: new Date().toLocaleString('pt-BR'),
+      dataHora: mounted ? new Date().toLocaleString('pt-BR') : '—',
     };
 
     return (
