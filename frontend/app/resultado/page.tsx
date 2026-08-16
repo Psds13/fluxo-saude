@@ -1,27 +1,25 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import ResultCard from '@/components/ResultCard';
 import PreTriageTicket from '@/components/PreTriageTicket';
 import DisclaimerBanner from '@/components/DisclaimerBanner';
 import { ResultadoAnalise, ResultadoTriagem } from '@/types/resultado';
-import Link from 'next/link';
 
 export default function ResultadoPage() {
-  const [resultado, setResultado] = useState<ResultadoAnalise | null>(null);
-
-  useEffect(() => {
+  const [resultado] = useState<ResultadoAnalise | null>(() => {
     if (typeof window !== 'undefined') {
       const deSessao = sessionStorage.getItem('fluxo_saude_resultado');
       if (deSessao) {
         try {
-          setResultado(JSON.parse(deSessao));
+          return JSON.parse(deSessao);
         } catch {
-          // fallback
+          return null;
         }
       }
     }
-  }, []);
+    return null;
+  });
 
   const converterParaTriagem = (res: ResultadoAnalise): ResultadoTriagem => ({
     tipoRecomendado: res.resultado,

@@ -4,15 +4,11 @@ import React, { useState } from 'react';
 import {
   useAccessibility,
   LISTA_IDIOMAS,
-  IdiomaOption,
-  PerfilAcessibilidade,
-  ModoCor,
 } from './AccessibilityContext';
 import {
   Eye,
   Type,
   Volume2,
-  VolumeX,
   Play,
   Pause,
   HelpCircle,
@@ -20,13 +16,10 @@ import {
   RotateCcw,
   Search,
   ChevronDown,
-  Activity,
   Zap,
   BookOpen,
   MousePointer,
   Sparkles,
-  Sun,
-  Moon,
   Contrast,
   Sliders,
   Check,
@@ -45,7 +38,8 @@ export default function AccessibilityMenu() {
     // Som de beep usando Web Audio API
     if (typeof window !== 'undefined') {
       try {
-        const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
+        const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+        const ctx = new AudioCtx();
         const tocar = (freq: number, start: number, dur: number) => {
           const osc = ctx.createOscillator();
           const gain = ctx.createGain();
@@ -90,7 +84,6 @@ export default function AccessibilityMenu() {
     modoCor,
     setModoCor,
     altoContraste,
-    toggleAltoContraste,
     tamanhoFonte,
     aumentarFonte,
     diminuirFonte,
@@ -139,7 +132,7 @@ export default function AccessibilityMenu() {
         className={`flex items-center gap-2 px-3.5 py-2 rounded-full text-xs font-bold border transition-all shadow-md hover:scale-105 active:scale-95 ${
           altoContraste || modoCor === 'alto-contraste'
             ? 'bg-yellow-400 text-black border-yellow-500 font-extrabold'
-            : 'bg-sky-700 text-white border-sky-800 hover:bg-sky-800'
+            : 'bg-blue-600 text-white border-blue-700 hover:bg-blue-700'
         }`}
       >
         <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center">
@@ -169,7 +162,7 @@ export default function AccessibilityMenu() {
                   onClick={() => setMenuIdiomaAberto(!menuIdiomaAberto)}
                   className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 transition text-xs font-bold text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700"
                 >
-                  <span className="w-5 h-5 rounded-full bg-sky-600 text-white font-bold text-[10px] flex items-center justify-center">
+                  <span className="w-5 h-5 rounded-full bg-blue-600 text-white font-bold text-[10px] flex items-center justify-center">
                     {idiomaAtualObj.badge}
                   </span>
                   <span>{idiomaAtualObj.name}</span>
@@ -187,7 +180,7 @@ export default function AccessibilityMenu() {
                         placeholder={t('pesquise_idioma', 'Pesquise o idioma')}
                         value={buscaIdioma}
                         onChange={(e) => setBuscaIdioma(e.target.value)}
-                        className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 outline-none focus:ring-2 focus:ring-sky-500 text-slate-800 dark:text-slate-100"
+                        className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 outline-none focus:ring-2 focus:ring-blue-500 text-slate-800 dark:text-slate-100"
                       />
                     </div>
 
@@ -202,7 +195,7 @@ export default function AccessibilityMenu() {
                           }}
                           className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition ${
                             idioma === item.code
-                              ? 'bg-sky-50 dark:bg-sky-950 text-sky-700 dark:text-sky-300 font-bold'
+                              ? 'bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 font-bold'
                               : 'hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300'
                           }`}
                         >
@@ -212,7 +205,7 @@ export default function AccessibilityMenu() {
                             </span>
                             <span>{item.name}</span>
                           </div>
-                          {idioma === item.code && <Check className="w-3.5 h-3.5 text-sky-600" />}
+                          {idioma === item.code && <Check className="w-3.5 h-3.5 text-blue-600" />}
                         </button>
                       ))}
                     </div>
@@ -241,13 +234,13 @@ export default function AccessibilityMenu() {
                   ? 'bg-rose-600 border-rose-700 text-white animate-pulse scale-105 shadow-rose-500/50'
                   : altoContraste || modoCor === 'alto-contraste'
                   ? 'bg-yellow-400 border-yellow-500 text-black hover:bg-yellow-300'
-                  : 'bg-gradient-to-r from-rose-600 to-orange-500 border-rose-700 text-white hover:from-rose-500 hover:to-orange-400 shadow-rose-500/30'
+                  : 'bg-linear-to-br from-[#0071BC] to-[#005a96] border-[#004f85] text-white hover:from-[#0080d4] hover:to-[#0071BC] shadow-[#0071BC]/30'
               }`}
             >
               <span className={`text-xl ${somAlerta ? 'animate-bounce' : ''}`}>🔊</span>
               <div className="text-left leading-tight">
                 <span className="block text-base font-black">
-                  {somAlerta ? '🔔 ALERTA EMITIDO!' : '🔥 Alerta Sonoro de Emergência'}
+                  {somAlerta ? '🔔 ALERTA EMITIDO!' : '🔔 Alerta Sonoro de Emergência'}
                 </span>
                 <span className="text-[11px] font-medium opacity-90">
                   {somAlerta ? 'Som, voz e vibração ativados' : 'Toque para emitir som + voz de alerta'}
@@ -264,8 +257,8 @@ export default function AccessibilityMenu() {
           {/* SESSÃO 1: PERFIS DE ACESSIBILIDADE (Estilo UserWay) */}
           <div className="space-y-3 mb-5">
             <div className="flex items-center justify-between">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
-                <Sliders className="w-3.5 h-3.5 text-sky-600" /> Perfis de Acessibilidade
+              <h4 className="text-xs font-bold uppercase tracking-wider text-[#0071BC] flex items-center gap-1.5">
+                <Sliders className="w-3.5 h-3.5 text-[#0071BC]" /> Perfis de Acessibilidade
               </h4>
               <span title="Perfis pré-configurados para diferentes necessidades">
                 <HelpCircle className="w-3.5 h-3.5 text-slate-400" />
@@ -279,11 +272,13 @@ export default function AccessibilityMenu() {
                 onClick={() => ativarPerfil('motora')}
                 className={`p-2.5 rounded-2xl border text-left flex items-center gap-2.5 transition ${
                   perfilAtivo === 'motora'
-                    ? 'bg-sky-600 text-white border-sky-700 font-bold shadow-md'
-                    : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:bg-sky-50 dark:hover:bg-slate-700'
+                    ? 'bg-[#0071BC] text-white border-[#005a96] font-bold shadow-md shadow-[#0071BC]/20'
+                    : 'bg-[#0071BC]/8 border-[#0071BC]/20 text-slate-700 hover:bg-[#0071BC]/15 hover:border-[#0071BC]/35'
                 }`}
               >
-                <div className="w-7 h-7 rounded-xl bg-sky-100 dark:bg-sky-900/50 text-sky-700 dark:text-sky-300 flex items-center justify-center shrink-0">
+                <div className={`w-7 h-7 rounded-xl flex items-center justify-center shrink-0 text-base ${
+                  perfilAtivo === 'motora' ? 'bg-white/20' : 'bg-[#0071BC]/12'
+                }`}>
                   ♿
                 </div>
                 <span className="leading-tight font-semibold text-[11px]">Deficiência Motora</span>
@@ -294,11 +289,13 @@ export default function AccessibilityMenu() {
                 onClick={() => ativarPerfil('cego')}
                 className={`p-2.5 rounded-2xl border text-left flex items-center gap-2.5 transition ${
                   perfilAtivo === 'cego'
-                    ? 'bg-sky-600 text-white border-sky-700 font-bold shadow-md'
-                    : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:bg-sky-50 dark:hover:bg-slate-700'
+                    ? 'bg-[#0071BC] text-white border-[#005a96] font-bold shadow-md shadow-[#0071BC]/20'
+                    : 'bg-[#0071BC]/8 border-[#0071BC]/20 text-slate-700 hover:bg-[#0071BC]/15 hover:border-[#0071BC]/35'
                 }`}
               >
-                <div className="w-7 h-7 rounded-xl bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300 flex items-center justify-center shrink-0">
+                <div className={`w-7 h-7 rounded-xl flex items-center justify-center shrink-0 text-base ${
+                  perfilAtivo === 'cego' ? 'bg-white/20' : 'bg-[#65C8D0]/20'
+                }`}>
                   👁️
                 </div>
                 <span className="leading-tight font-semibold text-[11px]">Cego / Tela</span>
@@ -309,11 +306,13 @@ export default function AccessibilityMenu() {
                 onClick={() => ativarPerfil('visaoReduzida')}
                 className={`p-2.5 rounded-2xl border text-left flex items-center gap-2.5 transition ${
                   perfilAtivo === 'visaoReduzida'
-                    ? 'bg-sky-600 text-white border-sky-700 font-bold shadow-md'
-                    : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:bg-sky-50 dark:hover:bg-slate-700'
+                    ? 'bg-[#0071BC] text-white border-[#005a96] font-bold shadow-md shadow-[#0071BC]/20'
+                    : 'bg-[#0071BC]/8 border-[#0071BC]/20 text-slate-700 hover:bg-[#0071BC]/15 hover:border-[#0071BC]/35'
                 }`}
               >
-                <div className="w-7 h-7 rounded-xl bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-300 flex items-center justify-center shrink-0">
+                <div className={`w-7 h-7 rounded-xl flex items-center justify-center shrink-0 text-base ${
+                  perfilAtivo === 'visaoReduzida' ? 'bg-white/20' : 'bg-amber-100'
+                }`}>
                   🔍
                 </div>
                 <span className="leading-tight font-semibold text-[11px]">Visão Reduzida</span>
@@ -324,11 +323,13 @@ export default function AccessibilityMenu() {
                 onClick={() => ativarPerfil('tdah')}
                 className={`p-2.5 rounded-2xl border text-left flex items-center gap-2.5 transition ${
                   perfilAtivo === 'tdah'
-                    ? 'bg-sky-600 text-white border-sky-700 font-bold shadow-md'
-                    : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:bg-sky-50 dark:hover:bg-slate-700'
+                    ? 'bg-[#0071BC] text-white border-[#005a96] font-bold shadow-md shadow-[#0071BC]/20'
+                    : 'bg-[#0071BC]/8 border-[#0071BC]/20 text-slate-700 hover:bg-[#0071BC]/15 hover:border-[#0071BC]/35'
                 }`}
               >
-                <div className="w-7 h-7 rounded-xl bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300 flex items-center justify-center shrink-0">
+                <div className={`w-7 h-7 rounded-xl flex items-center justify-center shrink-0 text-base ${
+                  perfilAtivo === 'tdah' ? 'bg-white/20' : 'bg-purple-100'
+                }`}>
                   🧠
                 </div>
                 <span className="leading-tight font-semibold text-[11px]">TDAH / Foco</span>
@@ -339,11 +340,13 @@ export default function AccessibilityMenu() {
                 onClick={() => ativarPerfil('epilepsia')}
                 className={`p-2.5 rounded-2xl border text-left flex items-center gap-2.5 transition ${
                   perfilAtivo === 'epilepsia'
-                    ? 'bg-sky-600 text-white border-sky-700 font-bold shadow-md'
-                    : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:bg-sky-50 dark:hover:bg-slate-700'
+                    ? 'bg-[#0071BC] text-white border-[#005a96] font-bold shadow-md shadow-[#0071BC]/20'
+                    : 'bg-[#0071BC]/8 border-[#0071BC]/20 text-slate-700 hover:bg-[#0071BC]/15 hover:border-[#0071BC]/35'
                 }`}
               >
-                <div className="w-7 h-7 rounded-xl bg-rose-100 dark:bg-rose-900/50 text-rose-700 dark:text-rose-300 flex items-center justify-center shrink-0">
+                <div className={`w-7 h-7 rounded-xl flex items-center justify-center shrink-0 text-base ${
+                  perfilAtivo === 'epilepsia' ? 'bg-white/20' : 'bg-rose-100'
+                }`}>
                   ⚡
                 </div>
                 <span className="leading-tight font-semibold text-[11px]">Epilepsia</span>
@@ -354,11 +357,13 @@ export default function AccessibilityMenu() {
                 onClick={() => ativarPerfil('dislexia')}
                 className={`p-2.5 rounded-2xl border text-left flex items-center gap-2.5 transition ${
                   perfilAtivo === 'dislexia'
-                    ? 'bg-sky-600 text-white border-sky-700 font-bold shadow-md'
-                    : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:bg-sky-50 dark:hover:bg-slate-700'
+                    ? 'bg-[#0071BC] text-white border-[#005a96] font-bold shadow-md shadow-[#0071BC]/20'
+                    : 'bg-[#0071BC]/8 border-[#0071BC]/20 text-slate-700 hover:bg-[#0071BC]/15 hover:border-[#0071BC]/35'
                 }`}
               >
-                <div className="w-7 h-7 rounded-xl bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 flex items-center justify-center shrink-0">
+                <div className={`w-7 h-7 rounded-xl flex items-center justify-center shrink-0 text-base ${
+                  perfilAtivo === 'dislexia' ? 'bg-white/20' : 'bg-indigo-100'
+                }`}>
                   📖
                 </div>
                 <span className="leading-tight font-semibold text-[11px]">Dislexia</span>
@@ -367,10 +372,10 @@ export default function AccessibilityMenu() {
           </div>
 
           {/* SESSÃO 2: FERRAMENTA DE VOZ / ÁUDIO (TOGGLE LER CONTEÚDO CORRIGIDO) */}
-          <div className="p-3.5 bg-sky-50 dark:bg-slate-800/80 rounded-2xl border border-sky-100 dark:border-slate-700 space-y-3 mb-5">
+          <div className="p-3.5 bg-[#0071BC]/10 rounded-2xl border border-[#0071BC]/25 space-y-3 mb-5">
             <div className="flex items-center justify-between">
-              <span className="font-bold text-xs flex items-center gap-1.5 text-sky-900 dark:text-sky-200">
-                <Volume2 className="w-4 h-4 text-sky-600" /> Auxílio por Voz (Áudio)
+              <span className="font-bold text-xs flex items-center gap-1.5 text-[#0071BC]">
+                <Volume2 className="w-4 h-4 text-[#0071BC]" /> Auxílio por Voz (Áudio)
               </span>
               <button
                 onClick={toggleLeitorVoz}
@@ -407,8 +412,8 @@ export default function AccessibilityMenu() {
 
           {/* SESSÃO 3: FERRAMENTAS INDIVIDUALMENTE AJUSTÁVEIS */}
           <div className="space-y-4 text-xs mb-5">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
-              <Type className="w-3.5 h-3.5 text-sky-600" /> Conteúdo & Leitura
+            <h4 className="text-xs font-bold uppercase tracking-wider text-[#0071BC] flex items-center gap-1.5">
+              <Type className="w-3.5 h-3.5 text-[#0071BC]" /> Conteúdo & Leitura
             </h4>
 
             {/* Tamanho da Fonte */}

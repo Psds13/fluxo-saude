@@ -20,7 +20,7 @@ export default function AnswerButton({ resposta, onClick }: AnswerButtonProps) {
         className={`w-full flex items-center justify-between p-5 md:p-6 rounded-2xl border-2 font-extrabold text-lg md:text-xl shadow-md transition-all active:scale-[0.98] ${
           altoContraste
             ? 'bg-yellow-400 text-black border-yellow-500 hover:bg-yellow-300'
-            : 'bg-emerald-600 hover:bg-emerald-700 text-white border-emerald-700 shadow-emerald-700/20'
+            : 'bg-cyan-600 hover:bg-cyan-700 text-white border-cyan-700 shadow-cyan-700/20'
         }`}
       >
         <div className="flex items-center gap-3">

@@ -26,41 +26,51 @@ export default function ServiceCard({
 }: ServiceCardProps) {
   const { altoContraste } = useAccessibility();
 
-  let borderStyles = 'border-slate-200 hover:border-sky-500';
-  let badgeColor = 'bg-sky-100 text-sky-800';
-  let iconBg = 'bg-sky-50 text-sky-600 border-sky-200';
-  let buttonStyle = 'bg-sky-600 hover:bg-sky-700 text-white';
+  let borderStyles = 'border-cyan-200 bg-cyan-50/60 hover:border-cyan-400 hover:shadow-[0_16px_38px_rgba(101,200,208,0.12)]';
+  let badgeColor = 'bg-cyan-100 text-cyan-800 border-cyan-200';
+  let iconBg = 'bg-cyan-50 text-cyan-700 border-cyan-200';
+  let buttonStyle = 'bg-cyan-700 hover:bg-cyan-800 text-white';
+  let titleStyle = 'text-slate-900 group-hover:text-cyan-700';
 
   if (variante === 'upa') {
-    borderStyles = 'border-rose-200 hover:border-rose-500 hover:shadow-rose-100/50';
+    borderStyles = 'border-rose-200 bg-rose-50/60 hover:border-rose-400 hover:shadow-[0_16px_36px_rgba(239,68,68,0.10)]';
     badgeColor = 'bg-rose-100 text-rose-800 border-rose-200';
     iconBg = 'bg-rose-50 text-rose-600 border-rose-200';
     buttonStyle = 'bg-rose-600 hover:bg-rose-700 text-white';
+    titleStyle = 'text-slate-900 group-hover:text-rose-700';
   } else if (variante === 'ubs') {
-    borderStyles = 'border-emerald-200 hover:border-emerald-500 hover:shadow-emerald-100/50';
-    badgeColor = 'bg-emerald-100 text-emerald-800 border-emerald-200';
-    iconBg = 'bg-emerald-50 text-emerald-700 border-emerald-200';
-    buttonStyle = 'bg-emerald-700 hover:bg-emerald-800 text-white';
+    borderStyles = 'border-cyan-200 bg-cyan-50/60 hover:border-cyan-400 hover:shadow-[0_16px_36px_rgba(101,200,208,0.12)]';
+    badgeColor = 'bg-cyan-100 text-cyan-800 border-cyan-200';
+    iconBg = 'bg-cyan-50 text-cyan-700 border-cyan-200';
+    buttonStyle = 'bg-cyan-700 hover:bg-cyan-800 text-white';
+    titleStyle = 'text-slate-900 group-hover:text-cyan-700';
+  } else if (variante === 'duvida') {
+    borderStyles = 'border-blue-200 bg-blue-50/60 hover:border-blue-400 hover:shadow-[0_16px_36px_rgba(0,113,188,0.12)]';
+    badgeColor = 'bg-blue-100 text-blue-800 border-blue-200';
+    iconBg = 'bg-blue-50 text-blue-700 border-blue-200';
+    buttonStyle = 'bg-blue-700 hover:bg-blue-800 text-white';
+    titleStyle = 'text-slate-900 group-hover:text-blue-700';
   } else if (variante === 'samu') {
-    borderStyles = 'border-red-400 bg-red-50/50 hover:border-red-600';
-    badgeColor = 'bg-red-600 text-white';
-    iconBg = 'bg-red-600 text-white';
-    buttonStyle = 'bg-red-700 hover:bg-red-800 text-white font-extrabold';
+    borderStyles = 'border-red-200 bg-red-50/60 hover:border-red-400 hover:shadow-[0_16px_36px_rgba(220,38,38,0.10)]';
+    badgeColor = 'bg-red-100 text-red-800 border-red-200';
+    iconBg = 'bg-red-50 text-red-600 border-red-200';
+    buttonStyle = 'bg-red-600 hover:bg-red-700 text-white';
+    titleStyle = 'text-slate-900 group-hover:text-red-700';
   }
 
   if (altoContraste) {
     borderStyles = 'border-yellow-400 bg-black text-yellow-300';
     buttonStyle = 'bg-yellow-400 text-black font-extrabold';
+    titleStyle = 'text-yellow-300 group-hover:text-yellow-200';
   }
 
   return (
     <div
-      className={`group relative flex flex-col justify-between p-6 md:p-7 rounded-3xl border-2 shadow-xs hover:shadow-xl transition-all duration-300 bg-white ${borderStyles}`}
+      className={`group relative flex flex-col justify-between p-6 md:p-7 rounded-3xl border-2 shadow-[0_12px_30px_rgba(15,23,42,0.04)] transition-all duration-300 ${borderStyles}`}
     >
       <div>
-        {/* Header do Card */}
         <div className="flex items-start justify-between gap-3 mb-4">
-          <div className={`p-3.5 rounded-2xl border ${iconBg} shadow-xs transition-transform group-hover:scale-105`}>
+          <div className={`p-3.5 rounded-2xl border ${iconBg} shadow-xs transition-transform duration-300 group-hover:scale-105`}>
             {icone}
           </div>
           {tagPopular && (
@@ -70,11 +80,10 @@ export default function ServiceCard({
           )}
         </div>
 
-        {/* Textos */}
-        <span className="text-xs font-bold text-slate-400 uppercase tracking-widest block mb-1">
+        <span className="text-[11px] font-bold text-slate-500 uppercase tracking-[0.14em] block mb-2">
           {subtitulo}
         </span>
-        <h3 className="text-xl md:text-2xl font-extrabold text-slate-900 group-hover:text-sky-700 transition-colors mb-2 leading-tight">
+        <h3 className={`text-xl md:text-2xl font-extrabold transition-colors mb-2 leading-tight ${titleStyle}`}>
           {titulo}
         </h3>
         <p className="text-slate-600 text-sm leading-relaxed mb-6">
@@ -82,10 +91,9 @@ export default function ServiceCard({
         </p>
       </div>
 
-      {/* Botão de Ação Grande e Acessível */}
       <Link
         href={href}
-        className={`w-full flex items-center justify-between px-5 py-3.5 rounded-2xl font-bold text-sm md:text-base transition shadow-md active:scale-[0.99] ${buttonStyle}`}
+        className={`w-full flex items-center justify-between px-5 py-3.5 rounded-2xl font-bold text-sm md:text-base transition-all shadow-md active:scale-[0.99] ${buttonStyle}`}
       >
         <span>Acessar Orientação</span>
         <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />

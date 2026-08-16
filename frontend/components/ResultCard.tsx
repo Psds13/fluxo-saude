@@ -13,8 +13,8 @@ interface ResultCardProps {
 export default function ResultCard({ resultado }: ResultCardProps) {
   const { altoContraste } = useAccessibility();
 
-  let headerGradient = 'from-sky-700 to-sky-900 text-white';
-  let badgeColor = 'bg-sky-100 text-sky-900 border-sky-300';
+  let headerGradient = 'from-blue-700 to-blue-900 text-white';
+  let badgeColor = 'bg-blue-100 text-blue-900 border-blue-300';
   let iconHeader = '🩺';
 
   if (resultado.resultado === 'UPA') {
@@ -57,9 +57,9 @@ export default function ResultCard({ resultado }: ResultCardProps) {
 
         {/* Corpo com Orientação Curta */}
         <div className={`p-6 md:p-8 space-y-6 ${altoContraste ? 'bg-black' : 'bg-white'}`}>
-          <div className="bg-sky-50 border border-sky-200 p-5 rounded-2xl text-sky-950 space-y-1">
-            <h3 className="font-bold text-sm uppercase tracking-wide text-sky-900 flex items-center gap-2">
-              <ShieldCheck className="w-5 h-5 text-sky-600" /> Resumo da Recomendação
+          <div className="bg-blue-50 border border-blue-200 p-5 rounded-2xl text-blue-950 space-y-1">
+            <h3 className="font-bold text-sm uppercase tracking-wide text-blue-900 flex items-center gap-2">
+              <ShieldCheck className="w-5 h-5 text-blue-600" /> Resumo da Recomendação
             </h3>
             <p className="text-sm md:text-base leading-relaxed">
               {resultado.mensagemCurta}
@@ -69,7 +69,7 @@ export default function ResultCard({ resultado }: ResultCardProps) {
           {/* Seção "Por que recebemos este resultado?" */}
           <div className="space-y-3 pt-2">
             <h3 className="font-extrabold text-lg md:text-xl text-slate-900 flex items-center gap-2">
-              <Info className="w-5 h-5 text-sky-600" /> Por que recebemos este resultado?
+              <Info className="w-5 h-5 text-blue-600" /> Por que recebemos este resultado?
             </h3>
             <p className="text-xs text-slate-500">
               A orientação foi gerada a partir das respostas fornecidas durante a triagem inicial, sem realização de diagnóstico médico:

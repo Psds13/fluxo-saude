@@ -30,11 +30,10 @@ export default function SearchUnit({
 
   return (
     <div
-      className={`rounded-3xl border-2 p-5 md:p-6 shadow-md space-y-4 ${
-        altoContraste ? 'bg-black text-yellow-300 border-yellow-400' : 'bg-white border-slate-200 text-slate-900'
+      className={`rounded-3xl border p-5 md:p-6 shadow-[0_12px_30px_rgba(15,23,42,0.04)] space-y-4 ${
+        altoContraste ? 'bg-black text-yellow-300 border-yellow-400' : 'bg-white/90 border-slate-200 text-slate-900'
       }`}
     >
-      {/* Campo de Busca Principal e Botão de Localização */}
       <div className="flex flex-col md:flex-row gap-3">
         <div className="relative flex-1">
           <Search className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -43,21 +42,20 @@ export default function SearchUnit({
             value={busca}
             onChange={(e) => onBuscaChange(e.target.value)}
             placeholder="Pesquisar por endereço, bairro ou nome da unidade..."
-            className="w-full pl-12 pr-4 py-3.5 rounded-2xl border border-slate-300 focus:outline-hidden focus:ring-2 focus:ring-sky-500 font-medium text-sm text-slate-900 placeholder:text-slate-400"
+            className="w-full pl-12 pr-4 py-3.5 rounded-2xl border border-blue-300 bg-blue-50/80 focus:outline-hidden focus:ring-2 focus:ring-blue-500 font-medium text-sm text-slate-900 placeholder:text-slate-400"
           />
         </div>
 
         <button
           onClick={onUsarLocalizacao}
           disabled={obtendoLocalizacao}
-          className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-2xl bg-sky-600 hover:bg-sky-700 disabled:bg-sky-400 text-white font-bold text-sm shadow-md transition active:scale-98 shrink-0"
+          className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-2xl bg-blue-700 hover:bg-blue-800 disabled:bg-blue-400 text-white font-bold text-sm shadow-md transition active:scale-98 shrink-0"
         >
           <Navigation className={`w-4 h-4 ${obtendoLocalizacao ? 'animate-spin' : ''}`} />
           <span>{obtendoLocalizacao ? 'Localizando...' : 'Usar minha localização'}</span>
         </button>
       </div>
 
-      {/* Filtros por Tipo de Unidade e Status */}
       <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-100">
         <div className="flex flex-wrap items-center gap-2">
           <span className="text-xs font-extrabold uppercase text-slate-400 flex items-center gap-1">
@@ -79,8 +77,8 @@ export default function SearchUnit({
             onClick={() => onTipoChange('UBS')}
             className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition ${
               tipoSelecionado === 'UBS'
-                ? 'bg-emerald-600 text-white shadow-xs'
-                : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200'
+                ? 'bg-cyan-600 text-white shadow-xs'
+                : 'bg-cyan-50 hover:bg-cyan-100 text-cyan-800 border border-cyan-200'
             }`}
           >
             🩺 Apenas UBS (Postos)
@@ -101,21 +99,20 @@ export default function SearchUnit({
             onClick={() => onTipoChange('HOSPITAL')}
             className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition ${
               tipoSelecionado === 'HOSPITAL'
-                ? 'bg-sky-600 text-white shadow-xs'
-                : 'bg-sky-50 hover:bg-sky-100 text-sky-800 border border-sky-200'
+                ? 'bg-blue-600 text-white shadow-xs'
+                : 'bg-blue-50 hover:bg-blue-100 text-blue-800 border border-blue-200'
             }`}
           >
             🏥 Hospitais
           </button>
         </div>
 
-        {/* Checkbox Apenas Abertas */}
         <label className="flex items-center gap-2 text-xs font-bold text-slate-700 cursor-pointer select-none">
           <input
             type="checkbox"
             checked={apenasAbertas}
             onChange={(e) => onApenasAbertasChange(e.target.checked)}
-            className="w-4 h-4 rounded-md text-sky-600 focus:ring-sky-500 border-slate-300"
+            className="w-4 h-4 rounded-md text-teal-600 focus:ring-teal-500 border-slate-300"
           />
           <span>Mostrar apenas unidades abertas agora</span>
         </label>

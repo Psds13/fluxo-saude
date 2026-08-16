@@ -30,33 +30,32 @@ export default function InteractiveMap({ unidades, onSelectUnidade }: Interactiv
 
   return (
     <div
-      className={`rounded-3xl border-2 shadow-xl p-6 md:p-8 transition-all ${
-        altoContraste ? 'bg-black text-yellow-300 border-yellow-400' : 'bg-white text-slate-900 border-slate-200'
+      className={`rounded-3xl border-2 shadow-sm p-6 md:p-8 transition-all ${
+        altoContraste ? 'bg-black text-yellow-300 border-yellow-400' : 'bg-white border-[#0071BC]/25'
       }`}
     >
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-4 border-b border-[#0071BC]/15">
         <div>
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-sky-100 text-sky-800 border border-sky-200 mb-2">
-            <MapPin className="w-3.5 h-3.5" /> Mapa Interativo & Status de Filas
+          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-[#0071BC]/10 text-[#0071BC] border border-[#0071BC]/25 mb-2">
+            <MapPin className="w-3.5 h-3.5 text-[#0071BC]" /> Mapa Interativo &amp; Status de Filas
           </span>
-          <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight">
+          <h2 className="text-2xl md:text-3xl font-black tracking-tight text-[#171E54]">
             Geolocalização das Unidades de Saúde
           </h2>
-          <p className="text-sm text-slate-500 font-medium">
+          <p className="text-sm text-[#557084] font-medium">
             Visualize os pontos de atenção, estimativa de espera e traçe sua rota até o posto.
           </p>
         </div>
 
-        {/* Filtros por Tipo de Unidade no Mapa */}
-        <div className="flex items-center gap-1.5 bg-slate-100 p-1.5 rounded-2xl border border-slate-200 shrink-0">
+        <div className="flex items-center gap-1.5 bg-[#f0f9ff] p-1.5 rounded-2xl border border-[#0071BC]/20 shrink-0">
           {(['TODOS', 'UBS', 'UPA'] as const).map((tipo) => (
             <button
               key={tipo}
               onClick={() => setFiltroTipo(tipo)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-extrabold transition ${
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-extrabold transition ${
                 filtroTipo === tipo
-                  ? 'bg-sky-600 text-white shadow-xs'
-                  : 'text-slate-700 hover:bg-slate-200'
+                  ? 'bg-[#0071BC] text-white shadow-xs'
+                  : 'text-[#557084] hover:bg-[#0071BC]/10 hover:text-[#0071BC]'
               }`}
             >
               {tipo === 'TODOS' ? 'Todas' : tipo}
@@ -69,13 +68,13 @@ export default function InteractiveMap({ unidades, onSelectUnidade }: Interactiv
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
         {/* Painel do Mapa Interativo (Visualizador de Pinos Simulado com Coordenadas) */}
-        <div className="lg:col-span-7 bg-slate-900 rounded-3xl p-6 text-white min-h-[380px] relative flex flex-col justify-between overflow-hidden border border-slate-800 shadow-inner">
-          <div className="absolute inset-0 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:16px_16px] opacity-20 pointer-events-none" />
+        <div className="lg:col-span-7 bg-linear-to-br from-[#f0f9ff] via-[#e8f8ff] to-[#e6f8f3] rounded-3xl p-6 text-slate-900 min-h-[380px] relative flex flex-col justify-between overflow-hidden border-2 border-[#0071BC]/20 shadow-xs">
+          <div className="absolute inset-0 bg-[radial-gradient(#0071BC_1px,transparent_1px)] [background-size:16px_16px] opacity-10 pointer-events-none" />
 
           {/* Topo do Mapa */}
           <div className="flex items-center justify-between relative z-10">
-            <div className="flex items-center gap-2 bg-slate-800/90 px-3 py-1.5 rounded-full backdrop-blur-md border border-slate-700 text-xs text-sky-300 font-semibold">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <div className="flex items-center gap-2 bg-white px-3.5 py-1.5 rounded-full backdrop-blur-md border border-[#0071BC]/30 text-xs text-[#0071BC] font-extrabold shadow-xs">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
               <span>GPS Ativo — Município Selecionado</span>
             </div>
           </div>
@@ -85,6 +84,7 @@ export default function InteractiveMap({ unidades, onSelectUnidade }: Interactiv
             {unidadesFiltradas.map((u) => {
               const isSelected = unidadeSelecionada?.id === u.id;
               const isUpa = u.tipo === 'UPA';
+              const isHospital = u.tipo === 'HOSPITAL';
 
               return (
                 <button
@@ -93,27 +93,40 @@ export default function InteractiveMap({ unidades, onSelectUnidade }: Interactiv
                     setUnidadeSelecionada(u);
                     if (onSelectUnidade) onSelectUnidade(u);
                   }}
-                  className={`p-3 rounded-2xl border text-left transition transform hover:scale-105 active:scale-95 ${
+                  className={`p-3.5 rounded-2xl border text-left transition-all transform hover:scale-105 active:scale-95 shadow-xs ${
                     isSelected
-                      ? 'bg-sky-600 text-white border-white shadow-xl ring-4 ring-sky-500/30'
+                      ? 'bg-[#0071BC] text-white border-[#005a96] shadow-lg ring-4 ring-[#0071BC]/25'
                       : isUpa
-                      ? 'bg-slate-800/90 border-rose-500/40 text-slate-100 hover:bg-slate-800'
-                      : 'bg-slate-800/90 border-emerald-500/40 text-slate-100 hover:bg-slate-800'
+                      ? 'bg-rose-50/90 border-rose-200 text-[#171E54] hover:bg-rose-100 hover:border-rose-300'
+                      : isHospital
+                      ? 'bg-blue-50/90 border-blue-200 text-[#171E54] hover:bg-blue-100 hover:border-blue-300'
+                      : 'bg-emerald-50/90 border-emerald-200 text-[#171E54] hover:bg-emerald-100 hover:border-emerald-300'
                   }`}
                 >
-                  <div className="flex items-center justify-between mb-1">
+                  <div className="flex items-center justify-between mb-1.5">
                     <span
-                      className={`text-[10px] font-extrabold px-2 py-0.5 rounded-md uppercase ${
-                        isUpa ? 'bg-rose-500/20 text-rose-300' : 'bg-emerald-500/20 text-emerald-300'
+                      className={`text-[10px] font-black px-2 py-0.5 rounded-md uppercase tracking-wider ${
+                        isSelected
+                          ? 'bg-white/20 text-white'
+                          : isUpa
+                          ? 'bg-rose-600 text-white'
+                          : isHospital
+                          ? 'bg-blue-600 text-white'
+                          : 'bg-emerald-600 text-white'
                       }`}
                     >
                       {u.tipo}
                     </span>
-                    <span className="w-2 h-2 rounded-full bg-emerald-400" title="Unidade Operacional" />
+                    <span
+                      className={`w-2.5 h-2.5 rounded-full ${isSelected ? 'bg-emerald-300' : 'bg-emerald-500'}`}
+                      title="Unidade Operacional"
+                    />
                   </div>
-                  <h4 className="font-extrabold text-xs line-clamp-1">{u.nome}</h4>
-                  <p className="text-[10px] text-slate-400 mt-1 flex items-center gap-1">
-                    <Navigation className="w-3 h-3 text-sky-400" /> {u.distanciaKm || '1.2'} km de você
+                  <h4 className={`font-black text-xs line-clamp-1 ${isSelected ? 'text-white' : 'text-[#171E54]'}`}>
+                    {u.nome}
+                  </h4>
+                  <p className={`text-[11px] font-bold mt-1 flex items-center gap-1 ${isSelected ? 'text-blue-100' : 'text-[#557084]'}`}>
+                    <Navigation className={`w-3 h-3 ${isSelected ? 'text-white' : 'text-[#0071BC]'}`} /> {u.distanciaKm || '1.2'} km de você
                   </p>
                 </button>
               );
@@ -121,11 +134,11 @@ export default function InteractiveMap({ unidades, onSelectUnidade }: Interactiv
           </div>
 
           {/* Legenda de Status de Filas */}
-          <div className="relative z-10 flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-800 text-[11px] text-slate-400 font-medium">
+          <div className="relative z-10 flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-[#0071BC]/15 text-[11px] text-[#557084] font-extrabold">
             <div className="flex items-center gap-3">
-              <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-emerald-500" /> Fila Baixa</span>
-              <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-amber-500" /> Fila Média</span>
-              <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-rose-500" /> Atendimento Intenso</span>
+              <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-emerald-500" /> Fila Baixa</span>
+              <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-amber-500" /> Fila Média</span>
+              <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-rose-500" /> Atendimento Intenso</span>
             </div>
           </div>
         </div>

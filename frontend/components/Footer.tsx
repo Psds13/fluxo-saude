@@ -10,11 +10,11 @@ export default function Footer() {
   const { altoContraste } = useAccessibility();
 
   return (
-    <footer className={`${altoContraste ? 'bg-black text-yellow-300 border-t border-yellow-400' : 'bg-slate-900 text-slate-300'} text-xs pt-10 pb-8 mt-auto`}>
+    <footer className={`${altoContraste ? 'bg-black text-yellow-300 border-t border-yellow-400' : 'bg-gradient-to-br from-blue-950 via-blue-900 to-emerald-950 text-slate-300'} text-xs pt-10 pb-8 mt-auto`}>
       <div className="max-w-7xl mx-auto px-4 space-y-8">
 
         {/* Disclaimer Oficial em Destaque */}
-        <div className="bg-slate-800/80 border border-slate-700 rounded-2xl p-4 md:p-6 text-slate-200 flex flex-col md:flex-row items-start gap-4 shadow-inner">
+        <div className="bg-blue-950/50 border border-blue-700 rounded-2xl p-4 md:p-6 text-slate-200 flex flex-col md:flex-row items-start gap-4 shadow-inner">
           <div className="bg-amber-500/20 text-amber-400 p-2.5 rounded-xl shrink-0">
             <Info className="w-6 h-6" />
           </div>
@@ -40,7 +40,7 @@ export default function Footer() {
                 <Image src="/Fluxo-saude.png" alt="Fluxo Saúde Logo" width={40} height={40} className="object-contain" />
               </div>
               <span className="text-lg font-extrabold text-white tracking-tight">
-                Fluxo <span className="text-sky-400">Saúde</span>
+                Fluxo <span className="text-emerald-400">Saúde</span>
               </span>
             </div>
             <p className="text-slate-400 text-xs leading-relaxed">
@@ -61,11 +61,11 @@ export default function Footer() {
                 <span className="font-semibold text-rose-300">SAMU — Emergência</span>
                 <a href="tel:192" className="bg-rose-600 hover:bg-rose-700 text-white font-extrabold px-2 py-0.5 rounded text-xs">192</a>
               </li>
-              <li className="flex justify-between items-center bg-slate-800/50 p-2 rounded-lg border border-slate-800">
+              <li className="flex justify-between items-center bg-blue-800/50 p-2 rounded-lg border border-blue-800">
                 <span>Disque Saúde SUS</span>
-                <a href="tel:136" className="bg-sky-600 hover:bg-sky-700 text-white font-bold px-2 py-0.5 rounded text-xs">136</a>
+                <a href="tel:136" className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-2 py-0.5 rounded text-xs">136</a>
               </li>
-              <li className="flex justify-between items-center bg-slate-800/50 p-2 rounded-lg border border-slate-800">
+              <li className="flex justify-between items-center bg-blue-800/50 p-2 rounded-lg border border-blue-800">
                 <span>Corpo de Bombeiros</span>
                 <a href="tel:193" className="bg-amber-600 hover:bg-amber-700 text-white font-bold px-2 py-0.5 rounded text-xs">193</a>
               </li>
@@ -79,19 +79,19 @@ export default function Footer() {
             </h5>
             <ul className="space-y-2 text-slate-400">
               <li>
-                <Link href="/" className="hover:text-white transition">Início / Orientação Rápida</Link>
+                <Link href="/" className="hover:text-emerald-300 transition">Início / Orientação Rápida</Link>
               </li>
               <li>
-                <Link href="/triagem" className="hover:text-white transition">Triagem Adaptativa</Link>
+                <Link href="/triagem" className="hover:text-emerald-300 transition">Triagem Adaptativa</Link>
               </li>
               <li>
-                <Link href="/unidades" className="hover:text-white transition">Buscar Postos e UPAs Próximos</Link>
+                <Link href="/unidades" className="hover:text-emerald-300 transition">Buscar Postos e UPAs Próximos</Link>
               </li>
               <li>
-                <Link href="/diferenca" className="hover:text-white transition">Diferenças UBS, UPA e SAMU</Link>
+                <Link href="/diferenca" className="hover:text-emerald-300 transition">Diferenças UBS, UPA e SAMU</Link>
               </li>
               <li>
-                <Link href="/admin" className="hover:text-white transition flex items-center gap-1">
+                <Link href="/admin" className="hover:text-emerald-300 transition flex items-center gap-1">
                   <ShieldAlert className="w-3.5 h-3.5 text-emerald-400" /> Acesso da Gestão Municipal
                 </Link>
               </li>
@@ -108,7 +108,7 @@ export default function Footer() {
             </p>
             <Link
               href="/admin"
-              className="inline-block w-full text-center bg-sky-600 hover:bg-sky-500 text-white font-bold py-2 rounded-xl text-xs transition shadow-md"
+              className="inline-block w-full text-center bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2 rounded-xl text-xs transition shadow-md"
             >
               Conheça o Painel do Gestor
             </Link>

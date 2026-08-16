@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import ServiceCard from '@/components/ServiceCard';
@@ -16,13 +16,9 @@ import {
   Stethoscope,
   Siren,
   HelpCircle,
-  PhoneCall,
-  MapPin,
   Building2,
-  CheckCircle2,
   ArrowRight,
   ShieldCheck,
-  HeartPulse,
   Info,
 } from 'lucide-react';
 import { useAccessibility } from '@/components/AccessibilityContext';
@@ -43,51 +39,46 @@ export default function HomePage() {
   return (
     <div className="space-y-12 pb-16">
       {/* Hero Section Oficial do Fluxo Saúde */}
-      <section className="relative bg-gradient-to-b from-sky-900 via-slate-900 to-slate-950 text-white pt-10 pb-16 px-4 overflow-hidden border-b border-sky-900">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-600/20 via-transparent to-transparent pointer-events-none"></div>
+      <section className="relative bg-linear-to-br from-[#e8f8ff] via-[#f0f9ff] to-[#e6f8f3] text-slate-900 pt-10 pb-16 px-4 overflow-hidden border-b border-cyan-200/80">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(0,113,188,0.10),transparent_30%)] pointer-events-none"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_right,rgba(16,185,129,0.06),transparent_28%)] pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto space-y-8 relative z-10">
-          
-          {/* Badge do Município Selecionado (SaaS) */}
+
           <div className="flex flex-wrap items-center justify-between gap-4">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 text-white text-xs font-semibold backdrop-blur-md border border-white/20">
-              <Building2 className="w-4 h-4 text-sky-400" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/85 text-slate-800 text-xs font-semibold backdrop-blur-md border border-cyan-200 shadow-sm">
+              <Building2 className="w-4 h-4 text-blue-600" />
               <span>Plataforma Oficial de Orientação — {tenantAtual.nome}</span>
             </div>
 
-            <div className="flex items-center gap-2 text-xs text-sky-200">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
+            <div className="flex items-center gap-2 text-xs text-slate-700">
+              <ShieldCheck className="w-4 h-4 text-emerald-600" />
               <span>Navegação Gratuita no SUS</span>
             </div>
           </div>
 
-          {/* Cabeçalho Principal com Logo */}
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pt-2">
-            <div className="space-y-3 max-w-3xl">
-              <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight leading-tight text-white">
-                {t('onde_devo_procurar', 'Onde devo procurar atendimento?')}
+            <div className="space-y-3 max-w-2xl">
+              <h1 className="text-3xl md:text-5xl font-black tracking-tight leading-tight text-[#171E54]">
+                {t('onde_devo_procurar', 'Onde devo procurar')} <span className="text-[#0071BC]">atendimento?</span>
               </h1>
-              <p className="text-sky-100 text-base md:text-xl font-normal leading-relaxed">
+              <p className="text-[#557084] text-base md:text-xl font-medium leading-relaxed">
                 {t('responda_perguntas', 'Responda algumas perguntas e descubra qual serviço de saúde pode ser mais adequado para sua situação na rede municipal.')}
               </p>
             </div>
 
-            {/* Logo em destaque no Hero */}
-            <div className="hidden lg:flex items-center gap-3 bg-white/10 p-4 rounded-3xl backdrop-blur-md border border-white/15 shrink-0 shadow-2xl">
+            {/* Foto Hero */}
+            <div className="hidden lg:block shrink-0 relative">
+              <div className="absolute inset-0 bg-linear-to-br from-[#0071BC]/15 to-emerald-400/10 rounded-3xl blur-2xl scale-110" />
               <Image
-                src="/Fluxo-saude.png"
-                alt="Logo Fluxo Saúde"
-                width={80}
-                height={80}
-                className="object-contain drop-shadow-md"
+                src="/hero-photo.png"
+                alt="Profissional de saúde atendendo paciente"
+                width={400}
+                height={300}
+                className="object-cover rounded-3xl drop-shadow-2xl relative z-10"
+                style={{ width: 'auto', height: 'auto' }}
+                priority
               />
-              <div className="space-y-0.5">
-                <span className="text-xs font-bold uppercase tracking-wider text-sky-300">
-                  Sistema Digital
-                </span>
-                <p className="text-lg font-black text-white">Fluxo Saúde</p>
-                <p className="text-[11px] text-slate-300">Atenção Básica e Urgência</p>
-              </div>
             </div>
           </div>
 
@@ -121,7 +112,7 @@ export default function HomePage() {
               titulo="Não sei qual escolher"
               subtitulo="Orientação Guiada"
               descricao="Responda algumas perguntas simples para receber uma orientação sobre qual serviço procurar."
-              icone={<HelpCircle className="w-8 h-8 text-sky-600" />}
+              icone={<HelpCircle className="w-8 h-8 text-blue-600" />}
               variante="duvida"
               href="/triagem"
               tagPopular="Triagem Rápida"
@@ -154,91 +145,131 @@ export default function HomePage() {
         </section>
 
         {/* Seção 11: "Entenda antes de ir" */}
-        <section className="space-y-8">
-          <div className="text-center max-w-3xl mx-auto space-y-2">
-            <span className="text-xs font-extrabold uppercase tracking-widest text-sky-600 bg-sky-50 px-3 py-1 rounded-full border border-sky-200">
-              Guia Rápido do Cidadão
-            </span>
-            <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900">
-              Entenda antes de ir
+        <section className="space-y-8 pt-12">
+          <div className="text-center max-w-3xl mx-auto space-y-3">
+            <div className="flex items-center justify-center gap-2">
+              <div className="h-1 w-8 bg-linear-to-r from-blue-600 to-cyan-500 rounded-full"></div>
+              <span className="text-xs font-extrabold uppercase tracking-widest text-blue-600">
+                Saúde Pública Organizada
+              </span>
+              <div className="h-1 w-8 bg-linear-to-l from-cyan-500 to-blue-600 rounded-full"></div>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-black text-slate-900">
+              Entenda os Serviços Disponíveis
             </h2>
-            <p className="text-slate-600 text-sm md:text-base">
-              Os serviços de saúde pública fazem parte de uma rede integrada. Cada unidade tem uma função específica para melhor atender a população.
+            <p className="text-slate-600 text-sm md:text-base leading-relaxed">
+              A rede de atenção à saúde funciona de forma integrada. Cada serviço tem um propósito específico: da prevenção ao atendimento de emergência.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             
             {/* Card UBS */}
-            <div className="bg-white p-6 rounded-3xl border-2 border-emerald-100 shadow-xs hover:shadow-lg transition space-y-3">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center font-black text-xl border border-emerald-200">
-                🩺
+            <div className="bg-white rounded-3xl border-2 border-cyan-100 shadow-sm hover:shadow-lg hover:border-cyan-300 transition-all duration-300 overflow-hidden group">
+              <div className="relative h-36 overflow-hidden bg-cyan-50">
+                <Image
+                  src="/ubs-illustration.png"
+                  alt="Unidade Básica de Saúde - UBS"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-white/30 to-transparent" />
               </div>
-              <h3 className="text-lg font-bold text-slate-900">
-                UBS — Unidade Básica
-              </h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                Porta de entrada da atenção básica. Voltada para consultas agendadas, vacinação, pré-natal, curativos, receitas e prevenção continuada.
-              </p>
-              <div className="pt-2 text-[11px] font-bold text-emerald-700">
-                ✓ Atendimento no bairro
+              <div className="p-5 space-y-2">
+                <h3 className="text-lg font-bold text-slate-900">
+                  UBS — Unidade Básica
+                </h3>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  Porta de entrada da atenção básica. Voltada para consultas agendadas, vacinação, pré-natal, curativos, receitas e prevenção continuada.
+                </p>
+                <div className="pt-1 text-[11px] font-bold text-cyan-700">
+                  ✓ Atendimento no bairro
+                </div>
               </div>
             </div>
 
             {/* Card UPA */}
-            <div className="bg-white p-6 rounded-3xl border-2 border-rose-100 shadow-xs hover:shadow-lg transition space-y-3">
-              <div className="w-12 h-12 rounded-2xl bg-rose-50 text-rose-700 flex items-center justify-center font-black text-xl border border-rose-200">
-                🚨
+            <div className="bg-white rounded-3xl border-2 border-rose-100 shadow-sm hover:shadow-lg hover:border-rose-300 transition-all duration-300 overflow-hidden group">
+              <div className="relative h-36 overflow-hidden bg-rose-50">
+                <Image
+                  src="/upa-illustration.png"
+                  alt="Unidade de Pronto Atendimento - UPA"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-white/30 to-transparent" />
               </div>
-              <h3 className="text-lg font-bold text-slate-900">
-                UPA — Pronto Atendimento
-              </h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                Serviço 24h destinado a situações de urgência e emergência sem risco imediato de morte, como febre alta repentina, cólica forte e pequenos traumas.
-              </p>
-              <div className="pt-2 text-[11px] font-bold text-rose-700">
-                ✓ Atendimento 24 horas
+              <div className="p-5 space-y-2">
+                <h3 className="text-lg font-bold text-slate-900">
+                  UPA — Pronto Atendimento
+                </h3>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  Serviço 24h destinado a situações de urgência e emergência sem risco imediato de morte, como febre alta repentina, cólica forte e pequenos traumas.
+                </p>
+                <div className="pt-1 text-[11px] font-bold text-rose-700">
+                  ✓ Atendimento 24 horas
+                </div>
               </div>
             </div>
 
             {/* Card SAMU */}
-            <div className="bg-white p-6 rounded-3xl border-2 border-red-100 shadow-xs hover:shadow-lg transition space-y-3">
-              <div className="w-12 h-12 rounded-2xl bg-red-50 text-red-700 flex items-center justify-center font-black text-xl border border-red-200">
-                🚑
+            <div className="bg-white rounded-3xl border-2 border-red-100 shadow-sm hover:shadow-lg hover:border-red-300 transition-all duration-300 overflow-hidden group">
+              <div className="relative h-36 overflow-hidden bg-red-50">
+                <Image
+                  src="/samu-illustration.png"
+                  alt="SAMU - Serviço de Atendimento Móvel de Urgência"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-white/30 to-transparent" />
               </div>
-              <h3 className="text-lg font-bold text-slate-900">
-                SAMU — Emergência 192
-              </h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                Atendimento móvel acionado pelo número 192 em situações de risco imediato à vida, como perda de consciência, parada respiratória e acidentes graves.
-              </p>
-              <div className="pt-2 text-[11px] font-bold text-red-700">
-                ✓ Socorro móvel 192
+              <div className="p-5 space-y-2">
+                <h3 className="text-lg font-bold text-slate-900">
+                  SAMU — Emergência 192
+                </h3>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  Atendimento móvel acionado pelo número 192 em situações de risco imediato à vida, como perda de consciência, parada respiratória e acidentes graves.
+                </p>
+                <div className="pt-1 text-[11px] font-bold text-red-700">
+                  ✓ Socorro móvel 192
+                </div>
               </div>
             </div>
 
             {/* Card Hospital */}
-            <div className="bg-white p-6 rounded-3xl border-2 border-sky-100 shadow-xs hover:shadow-lg transition space-y-3">
-              <div className="w-12 h-12 rounded-2xl bg-sky-50 text-sky-700 flex items-center justify-center font-black text-xl border border-sky-200">
-                🏥
+            <div className="bg-white rounded-3xl border-2 border-blue-100 shadow-sm hover:shadow-lg hover:border-blue-300 transition-all duration-300 overflow-hidden group">
+              <div className="relative h-36 overflow-hidden bg-blue-50">
+                <Image
+                  src="/hospital-illustration.png"
+                  alt="Hospital Público"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-white/30 to-transparent" />
               </div>
-              <h3 className="text-lg font-bold text-slate-900">
-                Hospital Público
-              </h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                Destinado a cirurgias, internações e atendimentos de alta complexidade, geralmente encaminhados pelas UPAs ou emergências via SAMU.
-              </p>
-              <div className="pt-2 text-[11px] font-bold text-sky-700">
-                ✓ Alta complexidade
+              <div className="p-5 space-y-2">
+                <h3 className="text-lg font-bold text-slate-900">
+                  Hospital Público
+                </h3>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  Destinado a cirurgias, internações e atendimentos de alta complexidade, geralmente encaminhados pelas UPAs ou emergências via SAMU.
+                </p>
+                <div className="pt-1 text-[11px] font-bold text-blue-700">
+                  ✓ Alta complexidade
+                </div>
               </div>
             </div>
 
           </div>
 
-          <div className="text-center pt-2">
+          <div className="text-center pt-4">
             <Link
               href="/diferenca"
-              className="inline-flex items-center gap-2 text-sm font-bold text-sky-700 hover:text-sky-800 underline decoration-2 underline-offset-4"
+              className="inline-flex items-center gap-2 text-sm font-bold text-blue-700 hover:text-blue-800 transition-colors underline decoration-2 underline-offset-4"
             >
               <Info className="w-4 h-4" />
               <span>Ver comparativo completo entre os serviços de saúde</span>
@@ -247,23 +278,23 @@ export default function HomePage() {
         </section>
 
         {/* Localização das Unidades */}
-        <section className="space-y-6 pt-4">
+        <section className="space-y-6 pt-12">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
             <div>
-              <span className="text-xs font-extrabold uppercase tracking-widest text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+              <span className="text-xs font-extrabold uppercase tracking-widest text-blue-600 bg-blue-50 px-3 py-1.5 rounded-full border border-blue-200">
                 Rede de Atendimento — {tenantAtual.nome}
               </span>
-              <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 mt-2">
+              <h2 className="text-2xl md:text-3xl font-black text-slate-900 mt-3">
                 Unidades de Saúde Próximas
               </h2>
-              <p className="text-slate-600 text-sm">
+              <p className="text-slate-600 text-sm mt-2">
                 Consulte horários, telefones, serviços disponíveis e status atualizado das unidades.
               </p>
             </div>
 
             <Link
               href="/unidades"
-              className="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white font-bold px-4 py-2.5 rounded-xl text-xs transition shadow-sm"
+              className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold px-5 py-2.5 rounded-xl text-xs transition-all shadow-md hover:shadow-lg active:scale-95"
             >
               <span>Ver Todas as Unidades</span>
               <ArrowRight className="w-4 h-4" />
@@ -301,7 +332,7 @@ export default function HomePage() {
               </p>
               <button
                 onClick={() => aplicarFiltro({ busca: '', tipo: 'TODAS', apenasAbertas: false })}
-                className="px-4 py-2 bg-sky-600 text-white text-xs font-bold rounded-xl"
+                className="text-xs font-bold text-blue-600 hover:text-blue-800 transition"
               >
                 Limpar Filtros
               </button>
@@ -316,27 +347,27 @@ export default function HomePage() {
         </section>
 
         {/* Seção SaaS Institucional para Municípios e Secretarias */}
-        <section className="bg-gradient-to-br from-slate-900 to-sky-950 text-white p-8 md:p-12 rounded-3xl shadow-xl space-y-6 border border-slate-800">
+        <section className="bg-linear-to-br from-blue-950 via-blue-900 to-emerald-950 text-white p-8 md:p-12 rounded-3xl shadow-xl space-y-6 border border-blue-800">
           <div className="max-w-3xl space-y-3">
-            <span className="text-xs font-extrabold uppercase tracking-wider text-emerald-400 bg-emerald-950/60 px-3 py-1 rounded-full border border-emerald-800">
+            <span className="text-xs font-extrabold uppercase tracking-wider text-emerald-300 bg-emerald-950/60 px-3 py-1 rounded-full border border-emerald-800">
               Plataforma SaaS para Órgãos Públicos
             </span>
             <h2 className="text-2xl md:text-4xl font-black">
               Leve o Fluxo Saúde para a sua Secretaria Municipal
             </h2>
-            <p className="text-slate-300 text-sm md:text-base leading-relaxed">
+            <p className="text-slate-200 text-sm md:text-base leading-relaxed">
               O Fluxo Saúde oferece um ambiente multi-tenant completo para prefeituras e redes estaduais gerenciarem informações de unidades, horários, serviços e orientações à população em tempo real.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-semibold text-slate-200">
-            <div className="bg-slate-800/60 p-4 rounded-2xl border border-slate-700">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-semibold text-slate-100">
+            <div className="bg-blue-800/40 p-4 rounded-2xl border border-blue-700/50 hover:bg-blue-800/60 transition">
               ✓ Painel do Gestor Municipal
             </div>
-            <div className="bg-slate-800/60 p-4 rounded-2xl border border-slate-700">
+            <div className="bg-blue-800/40 p-4 rounded-2xl border border-blue-700/50 hover:bg-blue-800/60 transition">
               ✓ Status de Funcionamento em Tempo Real
             </div>
-            <div className="bg-slate-800/60 p-4 rounded-2xl border border-slate-700">
+            <div className="bg-blue-800/40 p-4 rounded-2xl border border-blue-700/50 hover:bg-blue-800/60 transition">
               ✓ Triagem Adaptativa e Indicadores de Uso
             </div>
           </div>
@@ -344,7 +375,7 @@ export default function HomePage() {
           <div>
             <Link
               href="/admin"
-              className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-black px-6 py-3.5 rounded-2xl text-sm transition shadow-lg"
+              className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-black px-6 py-3.5 rounded-2xl text-sm transition shadow-lg active:scale-95"
             >
               <span>Acessar Demonstração do Painel do Gestor</span>
               <ArrowRight className="w-4 h-4" />

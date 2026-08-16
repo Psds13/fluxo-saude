@@ -12,7 +12,6 @@ import {
   Search,
   Check,
   ChevronDown,
-  Siren,
   PhoneCall,
 } from 'lucide-react';
 import { useAccessibility, LISTA_IDIOMAS } from './AccessibilityContext';
@@ -127,7 +126,7 @@ export default function HealthChatbot() {
       i.code.toLowerCase().includes(buscaIdioma.toLowerCase())
   );
 
-  const [mensagens, setMensagens] = useState<Message[]>([
+  const [mensagens, setMensagens] = useState<Message[]>(() => [
     {
       id: '1',
       sender: 'bot',
@@ -135,18 +134,6 @@ export default function HealthChatbot() {
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     },
   ]);
-
-  // Atualiza a mensagem de boas-vindas quando o idioma mudar
-  useEffect(() => {
-    setMensagens([
-      {
-        id: Date.now().toString(),
-        sender: 'bot',
-        text: getWelcome(idioma),
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-      },
-    ]);
-  }, [idioma]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -216,7 +203,7 @@ export default function HealthChatbot() {
         <button
           onClick={() => setAberto(true)}
           aria-label="Abrir Assistente de Saúde"
-          className="group relative flex items-center gap-3 px-5 py-3.5 rounded-2xl bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white font-bold shadow-2xl shadow-sky-500/30 transition-all hover:scale-105 active:scale-95 border border-white/20"
+          className="group relative flex items-center gap-3 px-5 py-3.5 rounded-2xl bg-linear-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white font-bold shadow-2xl shadow-sky-500/30 transition-all hover:scale-105 active:scale-95 border border-white/20"
         >
           {/* Anel pulsante */}
           <span className="absolute inset-0 rounded-2xl bg-sky-400/20 animate-ping opacity-60" />
@@ -233,19 +220,19 @@ export default function HealthChatbot() {
 
       {/* Janela de Chat */}
       {aberto && (
-        <div className="w-[22rem] sm:w-96 rounded-3xl bg-white text-slate-900 shadow-2xl border border-slate-200 overflow-hidden flex flex-col h-[580px]">
+        <div className="w-88 sm:w-96 rounded-3xl bg-white text-slate-900 shadow-2xl border border-slate-200 overflow-hidden flex flex-col h-145">
           {/* Header do Chat */}
-          <div className="bg-gradient-to-r from-sky-900 via-indigo-900 to-slate-900 p-4 text-white flex-shrink-0">
+          <div className="bg-linear-to-r from-blue-900 via-cyan-900 to-blue-900 p-4 text-white shrink-0">
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center shrink-0">
-                  <Bot className="w-6 h-6 text-sky-400" />
+                  <Bot className="w-6 h-6 text-cyan-300" />
                 </div>
                 <div>
                   <h3 className="font-extrabold text-sm flex items-center gap-1.5">
                     Assistente SUS <Sparkles className="w-3.5 h-3.5 text-amber-400" />
                   </h3>
-                  <p className="text-[11px] text-sky-300 flex items-center gap-1.5">
+                  <p className="text-[11px] text-cyan-200 flex items-center gap-1.5">
                     <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                     Triagem Inteligente por IA
                   </p>
@@ -332,7 +319,7 @@ export default function HealthChatbot() {
                 <div
                   className={`max-w-[88%] p-3 rounded-2xl leading-relaxed ${
                     msg.sender === 'user'
-                      ? 'bg-gradient-to-br from-sky-600 to-indigo-600 text-white rounded-br-none shadow-sm'
+                      ? 'bg-linear-to-br from-sky-600 to-indigo-600 text-white rounded-br-none shadow-sm'
                       : 'bg-white border border-slate-200 text-slate-800 rounded-bl-none shadow-sm'
                   }`}
                 >
@@ -401,7 +388,7 @@ export default function HealthChatbot() {
           </div>
 
           {/* Campo de Envio */}
-          <div className="p-3 bg-white border-t border-slate-100 flex items-center gap-2 flex-shrink-0">
+          <div className="p-3 bg-white border-t border-slate-100 flex items-center gap-2 shrink-0">
             <input
               type="text"
               placeholder={idioma === 'en-US' ? 'Describe your symptoms...' : idioma === 'es-ES' ? 'Describe tus síntomas...' : 'Descreva seus sintomas...'}
@@ -413,7 +400,7 @@ export default function HealthChatbot() {
             <button
               onClick={handleSend}
               disabled={!inputMessage.trim()}
-              className="p-2.5 rounded-xl bg-gradient-to-br from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 disabled:opacity-40 text-white transition shadow shrink-0"
+              className="p-2.5 rounded-xl bg-linear-to-br from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 disabled:opacity-40 text-white transition shadow shrink-0"
               aria-label="Enviar"
             >
               <Send className="w-4 h-4" />
